@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tornado Project</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; }
+        nav { background: #333; padding: 15px; margin-bottom: 30px; }
+        nav a { color: orange; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .content { padding: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/analyzer">Analyzer</a>
+        <a href="/data2020">2020 Archive</a>
+    </nav>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
