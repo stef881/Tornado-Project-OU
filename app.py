@@ -2,8 +2,12 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/analyzer', methods=['GET', 'POST'])
+def analyzer():
     result = None
     color = None
     if request.method == 'POST':
@@ -24,10 +28,15 @@ def home():
             else:
                 result, color = "EF5", "#FF0000"   # Red
         except ValueError:
-            result = "Ongeldige invoer"
+            result = "Invalid input"
             color = "white"
             
     return render_template('index.html', result=result, color=color)
+
+@app.route('/archive')
+@app.route('/data2020')
+def archive():
+    return render_template('archive.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
