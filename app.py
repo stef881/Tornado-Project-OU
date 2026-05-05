@@ -36,7 +36,14 @@ def analyzer():
 @app.route('/archive')
 @app.route('/data2020')
 def archive():
-    return render_template('archive.html')
+    data2020 = [
+        {'date': '2020-03-03', 'location': 'Nashville, TN', 'magnitude': 'EF3', 'wind': '165 mph', 'deaths': 25},
+        {'date': '2020-04-12', 'location': 'Easter Outbreak (MS)', 'magnitude': 'EF4', 'wind': '190 mph', 'deaths': 32},
+        {'date': '2020-05-17', 'location': 'Otter Tail, MN', 'magnitude': 'EF4', 'wind': '170 mph', 'deaths': 0},
+        {'date': '2020-08-10', 'location': 'Midwest Derecho', 'magnitude': 'EF1', 'wind': '110 mph', 'deaths': 4},
+        {'date': '2020-12-23', 'location': 'Southeast US', 'magnitude': 'EF2', 'wind': '130 mph', 'deaths': 0},
+    ]
+    return render_template('archive.html', data2020=data2020)
 
 if __name__ == '__main__':
     app.run(debug=True)
