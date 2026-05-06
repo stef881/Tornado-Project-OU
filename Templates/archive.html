@@ -1,55 +1,76 @@
 {% extends "Layout.html" %}
 
 {% block content %}
+<div class="container">
+    <h1>Tornado Archive {{ year }}</h1>
+    <p>Historical data for the year {{ year }}.</p>
+    <nav class="year-selector">
+    <ul>
+        <li><a href="{{ url_for('archive', year='2020') }}" class="{{ 'active' if year == '2020' }}">2020</a></li>
+        <li><a href="{{ url_for('archive', year='2021') }}" class="{{ 'active' if year == '2021' }}">2021</a></li>
+        <li><a href="{{ url_for('archive', year='2022') }}" class="{{ 'active' if year == '2022' }}">2022</a></li>
+        <li><a href="{{ url_for('archive', year='2023') }}" class="{{ 'active' if year == '2023' }}">2023</a></li>
+        <li><a href="{{ url_for('archive', year='2024') }}" class="{{ 'active' if year == '2024' }}">2024</a></li>
+        <li><a href="{{ url_for('archive', year='2025') }}" class="{{ 'active' if year == '2025' }}">2025</a></li>
+        <li><a href="{{ url_for('archive', year='2026') }}" class="{{ 'active' if year == '2026' }}">2026</a></li>
+    </ul>
+</nav>
+
 <style>
-    .archive-container {
-        max-width: 800px;
-        margin: 0 auto;
+    .year-selector ul {
+        list-style-type: none; 
+        padding: 0;
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
     }
-    .data-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: #222;
-        border-radius: 10px;
-        overflow: hidden;
+
+    .year-selector a {
+        text-decoration: none;
+        color: #333;
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: 0.3s;
     }
-    .data-table th, .data-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #444;
+
+    .year-selector a:hover {
+        background-color: orange;
+        color: white;
+        border-color: orange;
     }
-    .data-table th {
-        background: orange;
-        color: black;
-    }
-    .data-table tr:hover {
-        background: #333;
+
+    .year-selector a.active {
+        background-color: orange;
+        color: white;
+        font-weight: bold;
     }
 </style>
 
-<div class="archive-container">
-    <h1>Tornado Archive</h1>
-    <p>Detailed historical data for significant tornado events in 2020.</p>
-    
-    <table class="data-table">
+    <table class="tornado-table">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Location</th>
                 <th>Magnitude</th>
-                <th>Wind Speed</th>
+                <th>Wind (mph)</th>
                 <th>Deaths</th>
             </tr>
         </thead>
         <tbody>
-            {% for tornado in data2020 %}
+            {% for tornado in tornadoes %}
             <tr>
                 <td>{{ tornado.date }}</td>
                 <td>{{ tornado.location }}</td>
-                <td><strong>{{ tornado.magnitude }}</strong></td>
+                <td><span class="badge">{{ tornado.magnitude }}</span></td>
                 <td>{{ tornado.wind }}</td>
-                <td>{{ tornado.deaths }}</td>
+                <td {% if tornado.deaths > 0 %} style="color: red;" {% else %} style="color: gray;" {% endif %}>
+                 {{ tornado.deaths }}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No data available for this year yet.</td>
             </tr>
             {% endfor %}
         </tbody>
