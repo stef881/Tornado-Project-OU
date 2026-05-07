@@ -1,79 +1,112 @@
 {% extends "Layout.html" %}
 
 {% block content %}
-<div class="container">
-    <h1>Tornado Archive {{ year }}</h1>
-    <p>Historical data for the year {{ year }}.</p>
-    <nav class="year-selector">
-    <ul>
-        <li><a href="{{ url_for('archive', year='2020') }}" class="{{ 'active' if year == '2020' }}">2020</a></li>
-        <li><a href="{{ url_for('archive', year='2021') }}" class="{{ 'active' if year == '2021' }}">2021</a></li>
-        <li><a href="{{ url_for('archive', year='2022') }}" class="{{ 'active' if year == '2022' }}">2022</a></li>
-        <li><a href="{{ url_for('archive', year='2023') }}" class="{{ 'active' if year == '2023' }}">2023</a></li>
-        <li><a href="{{ url_for('archive', year='2024') }}" class="{{ 'active' if year == '2024' }}">2024</a></li>
-        <li><a href="{{ url_for('archive', year='2025') }}" class="{{ 'active' if year == '2025' }}">2025</a></li>
-        <li><a href="{{ url_for('archive', year='2026') }}" class="{{ 'active' if year == '2026' }}">2026</a></li>
-    </ul>
-</nav>
-
 <style>
-    .year-selector ul {
-        list-style-type: none; 
-        padding: 0;
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
+    .search-section {
+        background: #222;
+        padding: 30px;
+        border-radius: 15px;
+        border: 2px solid orange;
+        margin-bottom: 50px;
+        text-align: left;
     }
-
-    .year-selector a {
-        text-decoration: none;
-        color: #333;
-        padding: 8px 16px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+    .search-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .form-group label {
+        color: orange;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+    .form-group input {
+        padding: 10px;
+        background: #333;
+        border: 1px solid #444;
+        border-radius: 5px;
+        color: white;
+    }
+    .form-group input:focus {
+        border-color: orange;
+        outline: none;
+    }
+    .search-btn {
+        grid-column: span 2;
+        padding: 12px;
+        background: orange;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.1rem;
         transition: 0.3s;
     }
-
-    .year-selector a:hover {
-        background-color: orange;
-        color: white;
-        border-color: orange;
+    .search-btn:hover {
+        background: #e69500;
+        transform: translateY(-2px);
     }
-
-    .year-selector a.active {
-        background-color: orange;
+    .archive-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin-top: 50px;
+    }
+    .year-link {
+        font-size: 5rem;
+        font-weight: 900;
+        color: transparent;
+        -webkit-text-stroke: 2px orange;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        line-height: 1;
+    }
+    .year-link:hover {
+        color: orange;
+        -webkit-text-stroke: 2px white;
+        transform: scale(1.1);
+    }
+    .archive-title {
         color: white;
-        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid orange;
+        display: inline-block;
+        padding-bottom: 10px;
     }
 </style>
 
-    <table class="tornado-table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Magnitude</th>
-                <th>Wind (mph)</th>
-                <th>Deaths</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tornado in tornadoes %}
-            <tr>
-                <td>{{ tornado.date }}</td>
-                <td>{{ tornado.location }}</td>
-                <td><span class="badge">{{ tornado.magnitude }}</span></td>
-                <td>{{ tornado.wind }}</td>
-                <td {% if tornado.deaths > 0 %} style="color: red;" {% else %} style="color: gray;" {% endif %}>
-                 {{ tornado.deaths }}
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="5">No data available for this year yet.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="archive-container">
+    <div class="search-section">
+        <h2 style="color: white; margin-top: 0;">Search Archive</h2>
+        <form action="{{ url_for('search_archive') }}" method="GET" class="search-form">
+            <div class="form-group" style="grid-column: span 2;">
+                <label>Tornado Name or Location</label>
+                <input type="text" name="query" placeholder="e.g. Nashville or Easter Outbreak">
+            </div>
+            <div class="form-group">
+                <label>From Date</label>
+                <input type="date" name="start_date">
+            </div>
+            <div class="form-group">
+                <label>To Date</label>
+                <input type="date" name="end_date">
+            </div>
+            <button type="submit" class="search-btn">🔍 Search Tornadoes</button>
+        </form>
+    </div>
+
+    <h1 class="archive-title">Select a Year</h1>
+    <div class="archive-menu">
+        {% for year in years %}
+            <a href="{{ url_for('archive_year', year=year) }}" class="year-link">{{ year }}</a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

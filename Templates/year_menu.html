@@ -1,0 +1,76 @@
+{% extends "Layout.html" %}
+
+{% block content %}
+<style>
+    .menu-container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .back-link {
+        color: orange;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    .outbreaks-btn {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        background-color: transparent;
+        border: 2px solid orange;
+        color: orange;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+    .outbreaks-btn:hover {
+        background-color: orange;
+        color: black;
+        transform: scale(1.02);
+    }
+    .months-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    .month-link {
+        padding: 15px;
+        background: #222;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #444;
+        transition: all 0.2s;
+    }
+    .month-link:hover {
+        border-color: orange;
+        color: orange;
+        background: #333;
+    }
+    .year-header {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        color: white;
+    }
+</style>
+
+<div class="menu-container">
+    <a href="{{ url_for('archive') }}" class="back-link">← Back to Years</a>
+    <h1 class="year-header">{{ year }}</h1>
+    <p style="color: #888; margin-bottom: 40px;">Select a category or month to view data</p>
+
+    <a href="{{ url_for('year_outbreaks', year=year) }}" class="outbreaks-btn">🌪️ OUTBREAKS SUMMARY</a>
+
+    <div class="months-grid">
+        {% for id, name in months %}
+            <a href="{{ url_for('month_data', year=year, month_id=id) }}" class="month-link">{{ name }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

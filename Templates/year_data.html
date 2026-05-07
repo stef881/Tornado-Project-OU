@@ -1,0 +1,85 @@
+{% extends "Layout.html" %}
+
+{% block content %}
+<style>
+    .year-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .back-link {
+        color: orange;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #222;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .data-table th, .data-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+    }
+    .data-table th {
+        background: orange;
+        color: black;
+    }
+    .data-table tr:hover {
+        background: #333;
+    }
+    .no-data {
+        padding: 40px;
+        color: #888;
+        font-style: italic;
+    }
+</style>
+
+<div class="year-container">
+    {% if year == "Search" %}
+        <a href="{{ url_for('archive') }}" class="back-link">← Back to Archive Search</a>
+        <h1>Search {{ view_name }}</h1>
+    {% else %}
+        <a href="{{ url_for('archive_year', year=year) }}" class="back-link">← Back to {{ year }} Menu</a>
+        <h1>{{ year }} - {{ view_name }}</h1>
+    {% endif %}
+    
+    {% if year_data %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Magnitude</th>
+                <th>Wind Speed</th>
+                <th>Deaths</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tornado in year_data %}
+            <tr>
+                <td>{{ tornado.date }}</td>
+                <td>{{ tornado.location }}</td>
+                <td><strong>{{ tornado.magnitude }}</strong></td>
+                <td>{{ tornado.wind }}</td>
+                <td>{{ tornado.deaths }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-data">
+        <p>No historical data available for {{ view_name }} in {{ year }} yet.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
