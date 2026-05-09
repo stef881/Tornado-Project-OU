@@ -167,5 +167,41 @@ def selden_kansas():
                                {'date': '2021-05-24', 'location': 'Selden, KS', 'magnitude': 'EF2', 'wind': '125 mph', 'deaths': 0}
                            ])
 
+@app.route('/archive/2022/morton-texas')
+def morton_texas():
+    return render_template('year_data.html', 
+                           year=2022, 
+                           view_name="Morton, Texas Tornado", 
+                           year_data=[
+                               {'date': '2022-05-23', 'location': 'Morton, TX', 'magnitude': 'EF2', 'wind': '125 mph', 'deaths': 0}
+                           ])
+
+@app.route('/archive/2022/andover-kansas')
+def andover_kansas():
+    return render_template('year_data.html', 
+                           year=2022, 
+                           view_name="Andover, Kansas Tornado", 
+                           year_data=[
+                               {'date': '2022-04-29', 'location': 'Andover, KS', 'magnitude': 'EF3', 'wind': '155 mph', 'deaths': 0}
+                           ])
+
+@app.route('/archive/2023/matador-texas')
+def matador_texas():
+    return render_template('year_data.html', 
+                           year=2023, 
+                           view_name="Matador, Texas Tornado", 
+                           year_data=[
+                               {'date': '2023-06-21', 'location': 'Matador, TX', 'magnitude': 'EF3', 'wind': '165 mph', 'deaths': 4}
+                           ])
+
+@app.route('/archive/2023/keota-iowa')
+def keota_iowa():
+    return render_template('year_data.html', 
+                           year=2023, 
+                           view_name="Keota, Iowa Tornado", 
+                           year_data=[
+                               {'date': '2023-03-31', 'location': 'Keota, IA', 'magnitude': 'EF4', 'wind': '170 mph', 'deaths': 0}
+                           ])
+
 if __name__ == '__main__':
     app.run(debug=True)

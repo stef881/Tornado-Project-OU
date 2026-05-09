@@ -102,6 +102,20 @@
         </a>
         <p class="image-caption">2021 Lockett, Texas</p>
     </div>
+    {% elif year == 2022 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('andover_kansas') }}">
+            <img src="{{ url_for('static', filename='images/2022-EF3-Andover-Kansas-1.jpg') }}" alt="2022 Andover Kansas" class="side-image">
+        </a>
+        <p class="image-caption">2022 Andover, Kansas</p>
+    </div>
+    {% elif year == 2023 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('matador_texas') }}">
+            <img src="{{ url_for('static', filename='images/2023-EF3-Matador-Texas-1.jpg') }}" alt="2023 Matador Texas" class="side-image">
+        </a>
+        <p class="image-caption">2023 Matador, Texas</p>
+    </div>
     {% endif %}
 
     <div class="menu-container">
@@ -131,6 +145,20 @@
             <img src="{{ url_for('static', filename='images/Selden-Kansas-Tornado-2021-1.jpg') }}" alt="2021 Selden Kansas" class="side-image">
         </a>
         <p class="image-caption">2021 Selden, Kansas</p>
+    </div>
+    {% elif year == 2022 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('morton_texas') }}">
+            <img src="{{ url_for('static', filename='images/2022-EF2-Morton-Texas-1.jpg') }}" alt="2022 Morton Texas" class="side-image">
+        </a>
+        <p class="image-caption">2022 Morton, Texas</p>
+    </div>
+    {% elif year == 2023 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('keota_iowa') }}">
+            <img src="{{ url_for('static', filename='images/2023-EF4-Keota-Iowa-1.jpg') }}" alt="2023 Keota Iowa" class="side-image">
+        </a>
+        <p class="image-caption">2023 Keota, Iowa</p>
     </div>
     {% endif %}
 </div>
