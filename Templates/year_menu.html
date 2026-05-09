@@ -2,9 +2,36 @@
 
 {% block content %}
 <style>
+    .layout-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 50px;
+        margin-top: 40px;
+    }
+    .side-image-container {
+        flex: 0 0 600px;
+        text-align: center;
+    }
+    .side-image {
+        width: 100%;
+        border-radius: 10px;
+        border: 2px solid orange;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
+    }
+    .side-image:hover {
+        transform: scale(1.05);
+        border-color: white;
+    }
+    .image-caption {
+        color: #888;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        font-weight: bold;
+    }
     .menu-container {
         max-width: 600px;
-        margin: 0 auto;
         text-align: center;
     }
     .back-link {
@@ -60,17 +87,51 @@
     }
 </style>
 
-<div class="menu-container">
-    <a href="{{ url_for('archive') }}" class="back-link">← Back to Years</a>
-    <h1 class="year-header">{{ year }}</h1>
-    <p style="color: #888; margin-bottom: 40px;">Select a category or month to view data</p>
-
-    <a href="{{ url_for('year_outbreaks', year=year) }}" class="outbreaks-btn">🌪️ OUTBREAKS SUMMARY</a>
-
-    <div class="months-grid">
-        {% for id, name in months %}
-            <a href="{{ url_for('month_data', year=year, month_id=id) }}" class="month-link">{{ name }}</a>
-        {% endfor %}
+<div class="layout-wrapper">
+    {% if year == 2020 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('ashby_ef4') }}">
+            <img src="{{ url_for('static', filename='images/2020-Ashby-tornado-picture-1.png') }}" alt="2020 Ashby EF-4" class="side-image">
+        </a>
+        <p class="image-caption">2020 Ashby EF-4</p>
     </div>
+    {% elif year == 2021 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('lockett_texas') }}">
+            <img src="{{ url_for('static', filename='images/Lockett-Texas-2021-1.jpg') }}" alt="2021 Lockett Texas" class="side-image">
+        </a>
+        <p class="image-caption">2021 Lockett, Texas</p>
+    </div>
+    {% endif %}
+
+    <div class="menu-container">
+        <a href="{{ url_for('archive') }}" class="back-link">← Back to Years</a>
+        <h1 class="year-header">{{ year }}</h1>
+        <p style="color: #888; margin-bottom: 40px;">Select a category or month to view data</p>
+
+        <a href="{{ url_for('year_outbreaks', year=year) }}" class="outbreaks-btn">🌪️ OUTBREAKS SUMMARY</a>
+
+        <div class="months-grid">
+            {% for id, name in months %}
+                <a href="{{ url_for('month_data', year=year, month_id=id) }}" class="month-link">{{ name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if year == 2020 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('easter_outbreak') }}">
+            <img src="{{ url_for('static', filename='images/Easter-2020-Tornado-Outbreak-1.jpg') }}" alt="Easter Tornado Outbreak" class="side-image">
+        </a>
+        <p class="image-caption">Easter Tornado Outbreak</p>
+    </div>
+    {% elif year == 2021 %}
+    <div class="side-image-container">
+        <a href="{{ url_for('selden_kansas') }}">
+            <img src="{{ url_for('static', filename='images/Selden-Kansas-Tornado-2021-1.jpg') }}" alt="2021 Selden Kansas" class="side-image">
+        </a>
+        <p class="image-caption">2021 Selden, Kansas</p>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

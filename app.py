@@ -131,5 +131,41 @@ def search_archive():
             
     return render_template('year_data.html', year="Search", view_name="Results", year_data=results)
 
+@app.route('/archive/2020/ashby-ef4')
+def ashby_ef4():
+    return render_template('year_data.html', 
+                           year=2020, 
+                           view_name="Ashby EF-4 Tornado", 
+                           year_data=[
+                               {'date': '2020-07-08', 'location': 'Ashby, MN', 'magnitude': 'EF4', 'wind': '170 mph', 'deaths': 1}
+                           ])
+
+@app.route('/archive/2020/easter-outbreak')
+def easter_outbreak():
+    return render_template('year_data.html', 
+                           year=2020, 
+                           view_name="Easter 2020 Tornado Outbreak", 
+                           year_data=[
+                               {'date': '2020-04-12', 'location': 'Mississippi/Alabama/Georgia', 'magnitude': 'EF4', 'wind': '190 mph', 'deaths': 32}
+                           ])
+
+@app.route('/archive/2021/lockett-texas')
+def lockett_texas():
+    return render_template('year_data.html', 
+                           year=2021, 
+                           view_name="Lockett, Texas Tornado", 
+                           year_data=[
+                               {'date': '2021-05-04', 'location': 'Lockett, TX', 'magnitude': 'EF3', 'wind': '150 mph', 'deaths': 0}
+                           ])
+
+@app.route('/archive/2021/selden-kansas')
+def selden_kansas():
+    return render_template('year_data.html', 
+                           year=2021, 
+                           view_name="Selden, Kansas Tornado", 
+                           year_data=[
+                               {'date': '2021-05-24', 'location': 'Selden, KS', 'magnitude': 'EF2', 'wind': '125 mph', 'deaths': 0}
+                           ])
+
 if __name__ == '__main__':
     app.run(debug=True)
